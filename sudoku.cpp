@@ -47,18 +47,18 @@ bool SudokuPuzzle::done() const {
 }
 
 void SudokuPuzzle::insert(int rowIndex, int columnIndex) {
-    //crapy base case consideration
-    if (!done()) { 
-        //make sure we don't go out of bounds. Shouldn't need to consider the column case
-        if (rowIndex >= BOARD_SIZE) {
-            return (insert(0, columnIndex +1));
-        }
-        
-        for (int i = 1; i <= 9; ++i) {
-            board[rowIndex][columnIndex] = i;
-            //if (validRow)
-        }
+    //base case - we are finished
+    if (done()) { 
+        return;
+    }
+    //make sure we don't go out of bounds. Shouldn't need to consider the column case
+    if (rowIndex >= BOARD_SIZE) {
+        return (insert(0, columnIndex +1));
+    }
 
+    for (int i = 1; i <= 9; ++i) {
+        board[rowIndex][columnIndex] = i;
+        //if (validRow)
     }
 
 }
