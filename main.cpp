@@ -22,6 +22,10 @@ int main()
     std::cout << "Sudoku puzzle board:" << std::endl;
     puzzle.PrintBoard();
 
+    puzzle();
+    std::cout << std::endl;
+    puzzle.PrintBoard();
+
 
     return 0;
 

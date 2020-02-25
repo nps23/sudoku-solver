@@ -12,10 +12,13 @@ public:
     void operator()();
     void PrintBoard() const;
 private:
-    bool validRow(int rowIndex, int value) const;
-    bool validColumn(int rowIndex, int value) const;
+    bool validRow(int data, int rowIndex) const;
+    bool validColumn(int data, int columnIndex) const;
     bool validSquare(int rowIndex, int columnIndex, int value) const;
-    void insert(int rowIndex, int columnIndex);
+    bool isValid(int row, int col, int data) const;
+    //if this is going to be the recusrive algorithm, we will need to use a boolean (or some conditional)
+    //return type
+    bool insert(int rowIndex, int columnIndex);
     bool done() const;
 };
 

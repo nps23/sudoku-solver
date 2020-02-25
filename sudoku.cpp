@@ -23,16 +23,28 @@ void SudokuPuzzle::PrintBoard() const {
     }
 }
 
-bool SudokuPuzzle::validRow(int rowIndex, int columnIndex) const {
+bool SudokuPuzzle::validRow(int data, int rowIndex) const {
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        if (board[rowIndex][i] == data) {
+            return false;
+        }
+    }
 
+    return true;
 }
 
-bool SudokuPuzzle::validColumn(int rowIndex, int columnIndex) const {
+bool SudokuPuzzle::validColumn(int data, int columnIndex) const {
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        if (board[i][columnIndex] == i) {
+            return false;
+        }
+    }
 
+    return true;
 }
 
 bool SudokuPuzzle::validSquare(int rowIndex, int columIndex, int value) const{
-
+    return true;
 }
 
 bool SudokuPuzzle::done() const {
@@ -46,19 +58,46 @@ bool SudokuPuzzle::done() const {
     return true;
 }
 
-void SudokuPuzzle::insert(int rowIndex, int columnIndex) {
+bool SudokuPuzzle::isValid(int row, int col, int data) const {
+    //return (validRow(data, row) && validColumn(data, col) && validSquare(row, col, data));
+    return true;
+}
+
+bool SudokuPuzzle::insert(int rowIndex, int columnIndex) {
     //base case - we are finished
     if (done()) { 
-        return;
+        return true;
     }
     //make sure we don't go out of bounds. Shouldn't need to consider the column case
-    if (rowIndex >= BOARD_SIZE) {
-        return (insert(0, columnIndex +1));
+    if (columnIndex >= BOARD_SIZE) {
+        return (insert(rowIndex + 1, 0));
     }
 
-    for (int i = 1; i <= 9; ++i) {
-        board[rowIndex][columnIndex] = i;
-        //if (validRow)
+    //we've considered all the columns. Shouldn't need this
+    // if (columnIndex >= BOARD_SIZE) {
+    //     return true;
+    // }
+
+    if (board[rowIndex][columnIndex] == 0) {
+        for (int i = 1; i <= 9; ++i) {
+            // int old = board[rowIndex][columnIndex];
+            // board[rowIndex][columnIndex] = i;
+            if (isValid(rowIndex, columnIndex, i)) {
+                board[rowIndex][columnIndex] = i;
+                return (insert(rowIndex, columnIndex +1));
+            }
+
+            //board[rowIndex][columnIndex] = old;
+        }
+
+        return false;
     }
 
+    return (insert(rowIndex, columnIndex + 1));
+}
+
+void SudokuPuzzle::operator()() {
+    insert(0, 0);
+
+    return;
 }
