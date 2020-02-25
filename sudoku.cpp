@@ -56,7 +56,7 @@ void SudokuPuzzle::insert(int rowIndex, int columnIndex) {
         
         for (int i = 1; i <= 9; ++i) {
             board[rowIndex][columnIndex] = i;
-            if (validRow)
+            //if (validRow)
         }
 
     }
