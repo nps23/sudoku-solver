@@ -35,7 +35,7 @@ bool SudokuPuzzle::validRow(int data, int rowIndex) const {
 
 bool SudokuPuzzle::validColumn(int data, int columnIndex) const {
     for (int i = 0; i < BOARD_SIZE; ++i) {
-        if (board[i][columnIndex] == i) {
+        if (board[i][columnIndex] == data) {
             return false;
         }
     }
@@ -59,8 +59,7 @@ bool SudokuPuzzle::done() const {
 }
 
 bool SudokuPuzzle::isValid(int row, int col, int data) const {
-    //return (validRow(data, row) && validColumn(data, col) && validSquare(row, col, data));
-    return true;
+    return (validRow(data, row) && validColumn(data, col) && validSquare(row, col, data));
 }
 
 bool SudokuPuzzle::insert(int rowIndex, int columnIndex) {
@@ -80,20 +79,23 @@ bool SudokuPuzzle::insert(int rowIndex, int columnIndex) {
 
     if (board[rowIndex][columnIndex] == 0) {
         for (int i = 1; i <= 9; ++i) {
-            // int old = board[rowIndex][columnIndex];
+            int old = board[rowIndex][columnIndex];
             // board[rowIndex][columnIndex] = i;
             if (isValid(rowIndex, columnIndex, i)) {
                 board[rowIndex][columnIndex] = i;
-                return (insert(rowIndex, columnIndex +1));
+
+                if (insert(rowIndex, columnIndex +1))
+                    return true; //we are done
+            
+                board[rowIndex][columnIndex] = old; //backtracking here
             }
 
-            //board[rowIndex][columnIndex] = old;
         }
 
         return false;
     }
 
-    return (insert(rowIndex, columnIndex + 1));
+    insert(rowIndex, columnIndex + 1); //should be ok, since we are still exiting when done
 }
 
 void SudokuPuzzle::operator()() {
