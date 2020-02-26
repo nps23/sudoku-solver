@@ -55,6 +55,8 @@ bool SudokuPuzzle::done() const {
             }
         }
     }
+    std::cout << "deciding to be done with board state: " << std::endl;
+    PrintBoard();
     return true;
 }
 
@@ -95,7 +97,7 @@ bool SudokuPuzzle::insert(int rowIndex, int columnIndex) {
         return false;
     }
 
-    insert(rowIndex, columnIndex + 1); //should be ok, since we are still exiting when done
+    return (insert(rowIndex, columnIndex + 1)); //should be ok, since we are still exiting when done
 }
 
 void SudokuPuzzle::operator()() {
