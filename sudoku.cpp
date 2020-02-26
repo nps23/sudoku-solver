@@ -60,8 +60,8 @@ bool SudokuPuzzle::validSquare(int rowIndex, int columIndex, int value) const{
             row_bounds[1] = rowIndex + 1;
             break;
         case 2: //we are at the edge of a grid
-            row_bounds[0] = rowIndex;
-            row_bounds[1] = rowIndex - 2;
+            row_bounds[0] = rowIndex - 2;
+            row_bounds[1] = rowIndex;
             break;
     }
 
@@ -70,11 +70,11 @@ bool SudokuPuzzle::validSquare(int rowIndex, int columIndex, int value) const{
             col_bounds[0] = columIndex;
             col_bounds[1] = columIndex + 2;
             break;
-        case 1:
+        case 1: //we are in the middle of a grid
             col_bounds[0] = columIndex - 1;
             col_bounds[1] = columIndex + 1;
             break;
-        case 2:
+        case 2: //we are at the edge of a grid
             col_bounds[0] = columIndex - 2;
             col_bounds[1] = columIndex;
             break;
