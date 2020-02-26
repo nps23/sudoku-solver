@@ -66,7 +66,7 @@ bool SudokuPuzzle::validSquare(int rowIndex, int columIndex, int value) const{
     }
 
     switch(col_sweep) { //set bounds for the col. position
-        case 0:
+        case 0: //we are at the start of a grid
             col_bounds[0] = columIndex;
             col_bounds[1] = columIndex + 2;
             break;
@@ -80,8 +80,8 @@ bool SudokuPuzzle::validSquare(int rowIndex, int columIndex, int value) const{
             break;
     }
 
-    for (int i = row_bounds[0]; i < row_bounds[1]; ++i) {
-        for (int j = col_bounds[0]; j < col_bounds[1]; ++j) {
+    for (int i = row_bounds[0]; i <= row_bounds[1]; ++i) {
+        for (int j = col_bounds[0]; j <= col_bounds[1]; ++j) {
             if (board[i][j] == value) {
                 return false;
             }
