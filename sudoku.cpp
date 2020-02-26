@@ -44,6 +44,50 @@ bool SudokuPuzzle::validColumn(int data, int columnIndex) const {
 }
 
 bool SudokuPuzzle::validSquare(int rowIndex, int columIndex, int value) const{
+    int row_sweep = rowIndex % 3;
+    int col_sweep = columIndex %3;
+
+    int row_bounds[2] = {0, 0};
+    int col_bounds[2] = {0, 0};
+
+    switch(row_sweep) { //set bounds for the row position
+        case 0: //we are at the start of a grid
+            row_bounds[0] = rowIndex;
+            row_bounds[1] = rowIndex + 2;
+            break;
+        case 1: //we are the middle of a grid
+            row_bounds[0] = rowIndex - 1;
+            row_bounds[1] = rowIndex + 1;
+            break;
+        case 2: //we are at the edge of a grid
+            row_bounds[0] = rowIndex;
+            row_bounds[1] = rowIndex - 2;
+            break;
+    }
+
+    switch(col_sweep) { //set bounds for the col. position
+        case 0:
+            col_bounds[0] = columIndex;
+            col_bounds[1] = columIndex + 2;
+            break;
+        case 1:
+            col_bounds[0] = columIndex - 1;
+            col_bounds[1] = columIndex + 1;
+            break;
+        case 2:
+            col_bounds[0] = columIndex - 2;
+            col_bounds[1] = columIndex;
+            break;
+    }
+
+    for (int i = row_bounds[0]; i < row_bounds[1]; ++i) {
+        for (int j = col_bounds[0]; j < col_bounds[1]; ++j) {
+            if (board[i][j] == value) {
+                return false;
+            }
+        }
+    }
+
     return true;
 }
 
